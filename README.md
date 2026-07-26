@@ -1,3 +1,3 @@
 # Arty A7 FPGA Project
 
-Learning project using AMD Vivado and Verilog.
+Learning project using AMD Vivado, Verilog and MATLAB.
