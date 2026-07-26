@@ -20,10 +20,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module top(
-    input  wire [3:0] btn,
-    output wire [3:0] led
+    input wire clk,
+    output wire uart_tx
 );
 
-assign led[0] = btn[0];
+wire busy;
+
+uart_tx uart_tx_inst (
+    .clk(clk),
+    .tx_start(1'b1),
+    .data(8'h48),     // ASCII H
+    .tx(uart_tx),
+    .busy(busy)
+);
 
 endmodule
