@@ -20,41 +20,26 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-
-// from arty7.xdc
-
-// Clock signal
-// set_property -dict { PACKAGE_PIN E3    IOSTANDARD LVCMOS33 } [get_ports { CLK100MHZ }]; #IO_L12P_T1_MRCC_35 Sch=gclk[100]
-// create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports { CLK100MHZ }];
-
-// USB-UART Interface
-//set_property -dict { PACKAGE_PIN D10   IOSTANDARD LVCMOS33 } [get_ports { uart_rxd_out }]; #IO_L19N_T3_VREF_16 Sch=uart_rxd_out
-//set_property -dict { PACKAGE_PIN A9    IOSTANDARD LVCMOS33 } [get_ports { uart_txd_in }]; #IO_L14N_T2_SRCC_16 Sch=uart_txd_in
-
 module top(
-    input  wire CLK100MHZ,
-    output wire uart_txd_in
+    input  wire CLK100MHZ, //selecting the clock form constaints
+    output wire uart_txd_in // selecting the uart output from constraints
 );
 
-// from uart_tx.v
-// module uart_tx(
-//     input wire clk,
-//     input wire tx_start,
-//     input wire [7:0] data, // 8 bit
-//     output reg tx,
-//     output reg busy
-// );
+wire uart_tx_busy; //open connection for uart_tx
+wire baud_tick; //open connection for baud_gen
 
-// endmodule
-
-wire busy;
+baud_gen baud_inst (
+    .clk(CLK100MHZ), //import clock
+    .tick(baud_tick) //exporting baud_tick
+);
 
 uart_tx uart_tx_inst (
-    .clk(CLK100MHZ),
+    .clk(CLK100MHZ), //import clock
+    .baud_tick(baud_tick), //import baud_tick
     .tx_start(1'b1),
     .data(8'h48),      // ASCII 'H'
-    .tx(uart_txd_in),
-    .busy(busy)
+    .tx(uart_txd_in), //import uart output constraint
+    .busy(uart_tx_busy) //connection with top
 );
 
 endmodule
