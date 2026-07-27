@@ -3,7 +3,7 @@ module baud_gen #(
     parameter BAUD_RATE = 10_000
 )(
     input wire clk,
-    output reg baud_tick
+    output reg tick
 );
 
 
@@ -18,14 +18,14 @@ always @(posedge clk) begin
     if (counter == CLKS_PER_BIT-1) begin
 
         counter <= 0;
-        baud_tick <= 1'b1;
+        tick <= 1'b1;
 
     end
 
     else begin
 
         counter <= counter + 1;
-        baud_tick <= 1'b0;
+        tick <= 1'b0;
 
     end
 

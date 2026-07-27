@@ -30,7 +30,7 @@ wire baud_tick; //open connection for baud_gen
 
 baud_gen baud_inst (
     .clk(CLK100MHZ), //import clock
-    .tick(baud_tick) //exporting baud_tick
+    .tick(baud_tick) //output reg tick
 );
 
 uart_tx uart_tx_inst (
@@ -38,8 +38,8 @@ uart_tx uart_tx_inst (
     .baud_tick(baud_tick), //import baud_tick
     .tx_start(1'b1),
     .data(8'h48),      // ASCII 'H'
-    .tx(uart_txd_in), //import uart output constraint
-    .busy(uart_tx_busy) //connection with top
+    .tx(uart_txd_in), //    output reg tx
+    .busy(uart_tx_busy) //output reg busy
 );
 
 endmodule

@@ -1,10 +1,15 @@
 module uart_tx(
     input wire clk,
+    input wire baud_tick,
     input wire tx_start,
-    input wire baud_tick, //connection with baud_gen.v
-    input wire [7:0] data, // 8 bit
+    input wire [7:0] data,
     output reg tx,
     output reg busy
 );
+
+always @(posedge clk) begin
+    tx <= 1'b1;
+    busy <= 1'b0;
+end
 
 endmodule
