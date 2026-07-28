@@ -25,6 +25,3 @@ Thumbs.db
 .vscode/
 .idea/
 
-#Project files
-
-*.xpr
