@@ -24,3 +24,7 @@ Thumbs.db
 # Editor files
 .vscode/
 .idea/
+
+#Project files
+
+*.xpr
